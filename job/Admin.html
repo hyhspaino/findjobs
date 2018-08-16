@@ -1,0 +1,53 @@
+
+<html>
+  <head>
+    <meta >
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+
+      function drawChart() {
+
+
+
+
+      
+  $.ajax({url: "getJobs.php", success: function(result){
+var resultObj = JSON.parse(result);
+
+ var chartdata = [ ['category', 'Total']];
+
+for (var i = resultObj.length - 1; i >= 0; i--) {
+  chartdata.push([resultObj[i].skill, parseInt(resultObj[i].cnt)]);
+}
+
+
+     var data = google.visualization.arrayToDataTable(chartdata);
+
+        var options = {
+          title: 'percentage of each skill'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+
+    console.log("哈哈",JSON.parse(result));
+       // $("#div1").html(result);
+    }});
+
+
+
+      }
+    </script>
+  </head>
+  <body> 
+
+
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
